@@ -9,8 +9,10 @@ const Productmanage = () => {
       return res.json()
     }).then((result)=>{
       setprdata(result)
+      
     })
   },[prdata])
+  
 
   function Deletepr(id){
     fetch(`/api/deletepr/${id}`,{
@@ -30,6 +32,7 @@ const Productmanage = () => {
           <h1 className="text-4xl font-bold text-sky-600 my-4">
             Product Management👤
           </h1>
+          
           <Link to={"/addproduct"}>
             <Button variant="contained" color="warning">
               Add Product Here ..😍
@@ -78,11 +81,12 @@ const Productmanage = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {prdata.map((item) => (
-                    <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600">
+                  {prdata.map((item,index) => (
+                      
+                    <tr key={index} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600">
                       <td className="p-4">
                         <img
-                          src="/docs/images/products/apple-watch.png"
+                          src={`/uploads/${item.ProductImage}`}
                           className="w-16 md:w-32 max-w-full max-h-full"
                           alt="Apple Watch"
                         />

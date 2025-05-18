@@ -6,7 +6,7 @@ const cors =require("cors")
 const bodyParser = require("body-parser")
 const path =require("path")
 
-app.use(express.json())
+
 app.use(cors())
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -20,7 +20,7 @@ mongoose.connect(process.env.DV_STRING).then(()=>{
 })
 
 app.use("/api",apirouter)
-app.use("public", express.static(path.join(__dirname, "public")));
+app.use("/uploads", express.static(path.join(__dirname, "/public/uploads")));
 
 
 

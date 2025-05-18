@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import SendIcon from "@mui/icons-material/Send";
 import DeleteIcon from "@mui/icons-material/Delete";
+import { Link } from "react-router-dom";
 
 const AdminQuery=()=>{
    const[query,setquery]= useState([])
@@ -93,13 +94,13 @@ const AdminQuery=()=>{
                                     </td>
                                    
                                     <td className="px-6 py-4 font-semibold text-gray-900 dark:text-white">
-                                      
+                                      <Link to={`/adminqueryreplay/${item._id}`}>
                                         <Button variant="contained" color="success"
                                         endIcon={<SendIcon />}
                                         >
                                            Reply
                                         </Button>
-                                      
+                                      </Link>
                                     </td>
                                     <td className="px-6 py-4 font-semibold text-gray-900 dark:text-white">
                                       <Button

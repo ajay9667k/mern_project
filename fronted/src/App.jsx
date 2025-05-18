@@ -12,6 +12,7 @@ import Querymanage from "./Admin/Querymanage"
 import Addproduct from "./Admin/Addproduct"
 import Adminupdate from "./Admin/adminproductupdate"
 import Singlecollection from "./pages/showproduct"
+import Adminqueryreplay from "./Admin/Adminqueryreplay"
 
 
 
@@ -33,6 +34,7 @@ function App() {
     <Route path="/addproduct" element={<Addproduct/>}/>
     <Route path="/adminproductupdate/:id" element={<Adminupdate/>}/>
     <Route path="/showproduct" element={<Singlecollection/>}/>
+    <Route path="/adminqueryreplay/:abc" element={<Adminqueryreplay/>}/>
    </Routes>
    <Footer/>
    </BrowserRouter>

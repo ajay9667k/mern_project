@@ -1,23 +1,24 @@
 const Adminquerycollection= require("../model/Query")
-const newproductdata=require("../model/AdminProduct") 
+const newproductdata=require("../model/AdminProduct")
+const nodemailer= require("nodemailer") 
 const Admindata= async (req,res)=>{
     
    const Pimage= req.file.filename
     
-    const{prductN,ProductDes,ProductP,ProductRa,ProductBest,Size,}=req.body
-    console.log(req.body)
-//  const recored=  new newproductdata({
-//         ProductName: prductN,
-//         ProductDescription: ProductDes,
-//         ProductPrice: parseFloat(ProductP),
-//         ProductRating:parseFloat(ProductRa),
-//         ProductSizes:Size, 
-//         ProductBestSeller: ProductBest,
-//          ProductImage:Pimage,
-//     })
+    const{ title, Dese, Price, Ratting, Size,Bestsaller }=req.body
 
-   // await recored.save()
-   //  res.status(200).json({message:"succuessfuly productdata insert"})
+ const recored=  new newproductdata({
+        ProductName:title ,
+        ProductDescription: Dese,
+        ProductPrice: parseFloat(Price),
+        ProductRating:parseFloat(Ratting),
+        ProductSizes:Size, 
+        ProductBestSeller: JSON.parse(Bestsaller),
+         ProductImage:Pimage,
+    })
+
+   await recored.save()
+    res.status(200).json({message:"succuessfuly productdata insert"})
 }
 const showproductdata= async(req,res)=>{
   const showrecored= await newproductdata.find()
@@ -80,6 +81,53 @@ try {
 
 }
 
+const replayadmin=async (req,res)=>{
+try {
+    const queryid= req.params.abc
+ const data= await Adminquerycollection.findById(queryid)
+ res.status(200).json(data)
+} catch (error) {
+    res.status(500).json({message:"INTERNAL SERVER ERROR"})
+}
+}
+
+const replayemail= async (req,res)=>{
+  try {
+    const{sub,ebody,querydata}= req.body
+   const id=req.params.ert
+    const transporter = nodemailer.createTransport({
+  host: "smtp.gmail.com",
+  port: 587,
+  secure: false, 
+  auth: {
+    user: "ajay9667k@gmail.com",
+    pass: "wvunwcbvwhdqufez",
+  },
+});
+
+
+  const info = await transporter.sendMail({
+    from: '"OnlineShop" <ajay9667k@gmail.com>',
+    to:querydata,
+    subject:sub,
+    text:ebody, // plain‑text body
+    html:ebody, // HTML body
+  });
+
+      await Adminquerycollection.findByIdAndUpdate(id, {
+      QueryStatus: "Read",
+    });
+
+    res.status(200).json({ message: "Successfully Reply 😉" });
+  } catch (error) {
+    res.status(500).json({ message: "Internal Server Error 🫤" });
+  }
+ 
+
+}
+
+
+
 
 
 
@@ -94,6 +142,8 @@ module.exports={
     Updateadmindata,
     fornteddata,
     Querydata,
-    Queryremove
+    Queryremove,
+    replayadmin,
+    replayemail
   
 }

@@ -54,8 +54,8 @@ useEffect(()=>{
                    <Link to={"/showproduct"}>
                    <div class="bg-white rounded-xl shadow p-4">
                     <img
-                      src="https://via.placeholder.com/300x200"
-                      alt="Product"
+                      src={`/uploads/${value.ProductImage}`}
+                      
                       class="w-full h-48 object-cover rounded-md mb-3"
                     />
                     <h3 class="text-lg font-semibold">{value.ProductName}</h3>

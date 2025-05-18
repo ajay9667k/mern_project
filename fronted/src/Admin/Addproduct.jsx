@@ -20,7 +20,7 @@ const Addproduct = () => {
  const[Productratting,setProductratting]=useState("")
  const [isSize, setIssize] = useState([]);
  const [isBestseller, setIsbestseller] = useState(false);
- const[image,setimage]=useState()
+ const[image,setimage]=useState("")
   
    const navigate= useNavigate()
  function Handlechange(e){
@@ -36,18 +36,18 @@ const Addproduct = () => {
 
   function Handleform(e){
        e.preventDefault()
-  //  const Addproductdata ={prductN:Productname,ProductDes:Productdes,ProductP:Productprice,ProductRa:Productratting,ProductBest:isBestseller,Size:isSize}
+
 
    const formData=new FormData();
    formData.append("title",Productname)
    formData.append("Dese",Productdes)
    formData.append("Price",Productprice)
-   
+
    formData.append("Ratting",Productratting)
    isSize.forEach((value)=>{
     formData.append("Size",value)
    })
-   formData.append("Bestsaller",isBestseller)
+   formData.append("Bestsaller",JSON.stringify(isBestseller))
    formData.append("image",image)
 
 

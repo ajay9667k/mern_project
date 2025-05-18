@@ -15,6 +15,8 @@ router.get("/forntedproduct",Addminproductdata.fornteddata)
 router.post("/userquery",Controller.Qdata)
 router.get("/queryadmindata",Addminproductdata.Querydata)
 router.delete("/removequeryt/:id",Addminproductdata.Queryremove)
+router.get("/replayqueryadmin/:abc",Addminproductdata.replayadmin)
+router.post("/usermailreply/:ert",Addminproductdata.replayemail)
 
 
 module.exports=router
