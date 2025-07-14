@@ -4,7 +4,8 @@ const RegSchema= Schema({
     FirstName:String,
     LastName:String,
     Email:String,
-    Passworld:String
+    Passworld:String,
+    Isveryfy:Number,
 })
 
 

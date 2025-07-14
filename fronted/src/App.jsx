@@ -13,6 +13,9 @@ import Addproduct from "./Admin/Addproduct"
 import Adminupdate from "./Admin/adminproductupdate"
 import Singlecollection from "./pages/showproduct"
 import Adminqueryreplay from "./Admin/Adminqueryreplay"
+import Cart from "./pages/cart"
+import Userprofile from "./pages/userprofile"
+import Veryfyotp from "./pages/veryfyotp"
 
 
 
@@ -33,8 +36,11 @@ function App() {
     <Route path="/adminquery" element={<Querymanage/>}/>
     <Route path="/addproduct" element={<Addproduct/>}/>
     <Route path="/adminproductupdate/:id" element={<Adminupdate/>}/>
-    <Route path="/showproduct" element={<Singlecollection/>}/>
+    <Route path="/showproduct/:id" element={<Singlecollection/>}/>
     <Route path="/adminqueryreplay/:abc" element={<Adminqueryreplay/>}/>
+    <Route path="/cart" element={<Cart/>}/>
+    <Route path="/profile" element={<Userprofile/>}/> 
+    <Route path="/veryfyotp" element={<Veryfyotp/>}/>
    </Routes>
    <Footer/>
    </BrowserRouter>

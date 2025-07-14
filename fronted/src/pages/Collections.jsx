@@ -1,14 +1,32 @@
 import { useEffect, useState } from "react";
-import { Link } from 'react-router-dom';
+import toast from "react-hot-toast";
+import { Link, useNavigate} from 'react-router-dom';
+
 
 const Collection=()=>{
    const [product,setproduct]= useState([])
+   const navigate= useNavigate()
+   
 useEffect(()=>{
-  fetch("/api/forntedproduct").then((res)=>{
+ let token= localStorage.getItem("token")
+  fetch("/api/forntedproduct",{
+    method:"GET",
+    headers:{
+      "Content-Type":"application/json",
+      Authorization:`Bearer ${token ?? "undefined"}`
+    }
+  }).then((res)=>{
      return res.json()
   }).then((result)=>{
-    
-     setproduct(result)
+    console.log(result)
+    setproduct(result.data)
+  if (result.message === "succuessfuly") {
+          navigate("/collection");
+        } else if (result.message === "No token provided") {
+          navigate("/");
+        } else if (result.message === "Invalid token or expired token") {
+          toast.error(result.message);
+        }
   })
 },[])
 
@@ -50,13 +68,13 @@ useEffect(()=>{
                 <div class="md:col-span-3 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                       
                 {
-                    product.map((value)=>(
-                   <Link to={"/showproduct"}>
-                   <div class="bg-white rounded-xl shadow p-4">
+                    product.map((value,index)=>(
+                   <Link to={`/showproduct/${value._id}`}>
+                   <div key={index} class="bg-white rounded-xl shadow p-4">
                     <img
                       src={`/uploads/${value.ProductImage}`}
                       
-                      class="w-full h-48 object-cover rounded-md mb-3"
+                      class="w-full h-96 object-fill rounded-md mb-3"
                     />
                     <h3 class="text-lg font-semibold">{value.ProductName}</h3>
                     <p class="text-gray-600">{value.ProductDescription}</p>

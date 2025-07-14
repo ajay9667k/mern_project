@@ -13,6 +13,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import FavoriteBorder from '@mui/icons-material/FavoriteBorder';
 import Favorite from '@mui/icons-material/Favorite';
+import toast from "react-hot-toast";
 const Addproduct = () => {
  const[Productname,setProductname]= useState("")
  const[Productdes,setProductdes]=useState("")
@@ -22,6 +23,7 @@ const Addproduct = () => {
  const [isBestseller, setIsbestseller] = useState(false);
  const[image,setimage]=useState("")
   
+
    const navigate= useNavigate()
  function Handlechange(e){
       let value=e.target.value
@@ -36,7 +38,6 @@ const Addproduct = () => {
 
   function Handleform(e){
        e.preventDefault()
-
 
    const formData=new FormData();
    formData.append("title",Productname)
@@ -59,6 +60,9 @@ const Addproduct = () => {
    }).then((data)=>{
       if(data.message==="succuessfuly productdata insert"){
         navigate("/adminproduct")
+        toast.success(data.message)
+      }else{
+        toast.error(data.message)
       }
       
    })
@@ -95,6 +99,7 @@ const Addproduct = () => {
               value={Productname}
               onChange={(e)=>{setProductname(e.target.value)}}
               sx={{ marginBottom: "10px" }}
+              
             />
             <TextField
               id="outlined-basic"

@@ -1,11 +1,16 @@
 const Adminquerycollection= require("../model/Query")
 const newproductdata=require("../model/AdminProduct")
 const nodemailer= require("nodemailer") 
+
 const Admindata= async (req,res)=>{
     
-   const Pimage= req.file.filename
-    
+  try {
+    const Pimage= req.file.filename
     const{ title, Dese, Price, Ratting, Size,Bestsaller }=req.body
+    
+   if(!title || !Dese || !Price || !Ratting || !Size || !Bestsaller || !Pimage){
+    res.status(500).json({message:"All filed are Required 👨‍🔧"})
+   }
 
  const recored=  new newproductdata({
         ProductName:title ,
@@ -19,6 +24,9 @@ const Admindata= async (req,res)=>{
 
    await recored.save()
     res.status(200).json({message:"succuessfuly productdata insert"})
+  } catch (error) {
+    res.status(500).json({message:"INTERNAL SERVER ERORR 😒"})
+  }
 }
 const showproductdata= async(req,res)=>{
   const showrecored= await newproductdata.find()
@@ -60,8 +68,12 @@ const Updateadmindata=async (req,res)=>{
 }
 
 const fornteddata=async (req,res)=>{
-   const frontedproduct=await newproductdata.find()
-   res.status(200).json(frontedproduct)
+try {
+     const frontedproduct=await newproductdata.find({ProductStock:"In-Stock"})
+   res.status(200).json({data:frontedproduct,message:"succuessfuly"})
+} catch (error) {
+  res.status(500).json({ message: "Internal Server Error 🫤" });
+}
 }
 
 const Querydata= async (req,res)=>{
@@ -100,8 +112,8 @@ const replayemail= async (req,res)=>{
   port: 587,
   secure: false, 
   auth: {
-    user: "ajay9667k@gmail.com",
-    pass: "wvunwcbvwhdqufez",
+    user: "pensia123ajay@gmail.com",
+    pass: "xpncmvcidgbklzxg",
   },
 });
 
